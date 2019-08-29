@@ -8,7 +8,7 @@
 #  This script depends on a Python package called Fabric, this can be downloaded
 #  using:
 #
-#  pip install fabric
+#  pip install fabric==1.14.1 (Python 2.7 only)
 #
 #  The script is run with the following command:
 #
@@ -23,15 +23,15 @@
 
 ###############################################################################
 
+from fabric.api import env, settings, prefix
 from fabric.context_managers import cd, shell_env
+from fabric.contrib.files import exists
 from fabric.decorators import task
 from fabric.operations import run, get
-from fabric.api import env, settings, prefix
-from fabric.contrib.files import exists
 
-env.hosts = ['cheyenne2.ucar.edu']
+env.hosts = ['cheyenne.ucar.edu']
 
-env.user = "svasquez"
+env.user = "benkoz"
 env.password = ""
 
 
@@ -122,7 +122,7 @@ def gather_source_files(esmfdir):
     REFDOCDIR = os.path.join(esmfdir, "doc/ESMF_refdoc")
 
     if not exists(REFDOCDIR):
-        raise ValueError("Directory: " + REFDOCDIR + " was not found.  DING!")
+        raise ValueError("Directory: " + REFDOCDIR + " was not found")
 
     # have to get the files i want to search (all node*.html)
     files = []
