@@ -51,8 +51,8 @@ def myrun(cmd, **kwargs):
 
 
 def main():
-    log(check_output(['module', 'list']))
     log(check_output(['gcc', '--version']))
+    log(check_output(['gfortran', '--version']))
     os.chdir(WORKING_DIR)
     log('current working directory is: {}'.format(os.getcwd()))
     esmf_dir = os.path.join(WORKING_DIR, "esmf-for-api-changes")
