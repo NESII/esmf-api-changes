@@ -51,6 +51,7 @@ def myrun(cmd, **kwargs):
 
 
 def main():
+    log(check_output(['module', 'list']))
     log(check_output(['gcc', '--version']))
     os.chdir(WORKING_DIR)
     log('current working directory is: {}'.format(os.getcwd()))
