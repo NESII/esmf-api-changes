@@ -168,8 +168,8 @@ def harvestInterfaceChanges(esmfdir, tag1, tag2):
     :param str tag2: Git tag for the current release
     """
 
-    output1 = "APIs-"+tag1+".out"
-    output2 = "APIs-"+tag2+".out"
+    output1 = os.path.join(WORKING_DIR, "APIs-"+tag1+".out")
+    output2 = os.path.join(WORKING_DIR, "APIs-"+tag2+".out")
     diffile = "diff-"+tag1+"-"+tag2+".out"
     do(esmfdir, output1, tag1)
     do(esmfdir, output2, tag2)
