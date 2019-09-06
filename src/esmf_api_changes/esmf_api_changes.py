@@ -16,13 +16,13 @@ TAG2 = "ESMF_8_0_0_beta_snapshot_48"
 LOGPATH = "esmf_api_changes.log"
 LOGLVL = logging.INFO
 
-formatter = logging.Formatter(fmt='%(name)s: %(levelname)s: %(asctime)s: %(message)s',
-                              datefmt='%Y-%m-%d %H:%M:%S')
+
 logging.basicConfig(
     level=LOGLVL,
-    format=formatter,
+    format='%(name)s: %(levelname)s: %(asctime)s: %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S',
     handlers=[
-        logging.FileHandler(LOGPATH),
+        logging.FileHandler(LOGPATH, mode='w'),
         logging.StreamHandler()
     ])
 
