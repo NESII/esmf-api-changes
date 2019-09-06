@@ -136,8 +136,8 @@ def build_esmf_docs(esmfdir, tag):
     myrun("make distclean", call_or_output="output")
     with open(os.path.join(WORKING_DIR, 'esmf-api-changes-make-info-{}.out'.format(tag)), 'w') as f:
         myrun("make info", stdout=f, stderr=f)
-    with open(os.path.join(WORKING_DIR, 'esmf-api-changes-make-{}.out'.format(tag)), 'w') as f:
-        myrun("make", stdout=f, stderr=f)
+    # with open(os.path.join(WORKING_DIR, 'esmf-api-changes-make-{}.out'.format(tag)), 'w') as f:
+    #     myrun("make", stdout=f, stderr=f)
     with open(os.path.join(WORKING_DIR, 'esmf-api-changes-make-doc-{}.out'.format(tag)), 'w') as f:
         myrun("make doc", stdout=f, stderr=f)
 
