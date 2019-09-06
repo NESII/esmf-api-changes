@@ -14,10 +14,13 @@ TAG1 = "ESMF_7_1_0r"
 # Tag for the new release that contains the API changes
 TAG2 = "ESMF_8_0_0_beta_snapshot_48"
 LOGPATH = "esmf_api_changes.log"
+LOGLVL = logging.INFO
 
+formatter = logging.Formatter(fmt='%(name)s: %(levelname)s: %(asctime)s: %(message)s',
+                              datefmt='%Y-%m-%d %H:%M:%S')
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s",
+    level=LOGLVL,
+    format=formatter,
     handlers=[
         logging.FileHandler(LOGPATH),
         logging.StreamHandler()
