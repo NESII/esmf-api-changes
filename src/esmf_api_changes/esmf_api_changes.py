@@ -1,3 +1,4 @@
+import logging
 import os
 import re
 import shutil
@@ -7,17 +8,26 @@ from subprocess import check_call, check_output
 
 # Path to the working directory. A new ESMF installation will be checked out in
 # this directory. Ideally, this directory should be empty.
-WORKING_DIR = "/tmp"
+WORKING_DIR = os.path.expanduser("~/sandbox")
 # Tag to compare against (i.e. the previous release)
 TAG1 = "ESMF_7_1_0r"
 # Tag for the new release that contains the API changes
-TAG2 = "ESMF_8_0_0_beta_snapshot_46"
+TAG2 = "ESMF_8_0_0_beta_snapshot_48"
+LOGPATH = "esmf_api_changes.log"
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s",
+    handlers=[
+        logging.FileHandler(LOGPATH),
+        logging.StreamHandler()
+    ])
 
 # ==============================================================================
 
 
 def log(msg):
-    print("[esmf-api-changes]:: {}".format(msg))
+    logging.log(logging.INFO, msg)
 
 
 def myrun(cmd, **kwargs):
@@ -118,6 +128,8 @@ def build_esmf_docs(esmfdir, tag):
     myrun("git pull")
     myrun("git checkout " + tag)
     myrun("make distclean", call_or_output="output")
+    with open('esmf-api-changes-make-info-{}.out'.format(tag), 'w') as f:
+        myrun("make info", stdout=f, stderr=f)
     with open('esmf-api-changes-make-{}.out'.format(tag), 'w') as f:
         myrun("make", stdout=f, stderr=f)
     with open('esmf-api-changes-make-doc-{}.out'.format(tag), 'w') as f:
