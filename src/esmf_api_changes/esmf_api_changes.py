@@ -10,7 +10,7 @@ from subprocess import check_call, check_output
 # this directory. Ideally, this directory should be empty.
 WORKING_DIR = os.path.expanduser("~/sandbox")
 # Tag to compare against (i.e. the previous release)
-TAG1 = "ESMF_7_1_0r"
+TAG1 = "ESMF_7_1_0rbranch"
 # TAG1 = "ESMF_8_0_0_beta_snapshot_47"
 # Tag for the new release that contains the API changes
 TAG2 = "ESMF_8_0_0_beta_snapshot_48"
