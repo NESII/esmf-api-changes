@@ -45,9 +45,9 @@ def myrun(cmd, **kwargs):
         msg += ", stderr=" + str(kwargs["stderr"])
     log(msg)
     if call_or_output == "call":
-        check_call(cmd, **kwargs)
+        return check_call(cmd, **kwargs)
     else:
-        check_output(cmd, **kwargs)
+        return check_output(cmd, **kwargs)
 
 
 def main():
@@ -109,7 +109,7 @@ def gather_source_files(esmfdir):
 
     # have to get the files i want to search (all node*.html)
     files = []
-    output = myrun("ls " + REFDOCDIR)
+    output = myrun("ls " + REFDOCDIR, call_or_output="output")
     listdir = output.split()
     for htmlfile in listdir:
         if 'node' in htmlfile:
@@ -130,16 +130,16 @@ def gather_source_files(esmfdir):
 def build_esmf_docs(esmfdir, tag):
     os.chdir(esmfdir)
     os.putenv("ESMF_DIR", esmfdir)
-    myrun("git checkout master")
-    myrun("git pull")
-    myrun("git checkout " + tag)
-    myrun("make distclean", call_or_output="output")
-    with open(os.path.join(WORKING_DIR, 'esmf-api-changes-make-info-{}.out'.format(tag)), 'w') as f:
-        myrun("make info", stdout=f, stderr=f)
-    with open(os.path.join(WORKING_DIR, 'esmf-api-changes-make-{}.out'.format(tag)), 'w') as f:
-        myrun("make", stdout=f, stderr=f)
-    with open(os.path.join(WORKING_DIR, 'esmf-api-changes-make-doc-{}.out'.format(tag)), 'w') as f:
-        myrun("make doc", stdout=f, stderr=f)
+    # myrun("git checkout master")
+    # myrun("git pull")
+    # myrun("git checkout " + tag)
+    # myrun("make distclean", call_or_output="output")
+    # with open(os.path.join(WORKING_DIR, 'esmf-api-changes-make-info-{}.out'.format(tag)), 'w') as f:
+    #     myrun("make info", stdout=f, stderr=f)
+    # with open(os.path.join(WORKING_DIR, 'esmf-api-changes-make-{}.out'.format(tag)), 'w') as f:
+    #     myrun("make", stdout=f, stderr=f)
+    # with open(os.path.join(WORKING_DIR, 'esmf-api-changes-make-doc-{}.out'.format(tag)), 'w') as f:
+    #     myrun("make doc", stdout=f, stderr=f)
 
 
 def do(esmfdir, outputfile, tag):
@@ -151,6 +151,7 @@ def do(esmfdir, outputfile, tag):
         build_esmf_docs(esmfdir, tag)
         os.makedirs(DRYDIR)
     files = gather_source_files(esmfdir)
+    log("copying files to: {}".format(DRYDIR))
     for f in files:
         shutil.copy2(f, DRYDIR)
 
