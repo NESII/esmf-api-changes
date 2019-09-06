@@ -19,7 +19,7 @@ LOGLVL = logging.INFO
 
 logging.basicConfig(
     level=LOGLVL,
-    format='%(name)s: %(levelname)s: %(asctime)s: %(message)s',
+    format='[%(name)s]:[%(levelname)s]:[%(asctime)s]: %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S',
     handlers=[
         logging.FileHandler(LOGPATH, mode='w'),
