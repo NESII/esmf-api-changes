@@ -130,16 +130,16 @@ def gather_source_files(esmfdir):
 def build_esmf_docs(esmfdir, tag):
     os.chdir(esmfdir)
     os.putenv("ESMF_DIR", esmfdir)
-    # myrun("git checkout master")
-    # myrun("git pull")
-    # myrun("git checkout " + tag)
-    # myrun("make distclean", call_or_output="output")
-    # with open(os.path.join(WORKING_DIR, 'esmf-api-changes-make-info-{}.out'.format(tag)), 'w') as f:
-    #     myrun("make info", stdout=f, stderr=f)
+    myrun("git checkout master")
+    myrun("git pull")
+    myrun("git checkout " + tag)
+    myrun("make distclean", call_or_output="output")
+    with open(os.path.join(WORKING_DIR, 'esmf-api-changes-make-info-{}.out'.format(tag)), 'w') as f:
+        myrun("make info", stdout=f, stderr=f)
     # with open(os.path.join(WORKING_DIR, 'esmf-api-changes-make-{}.out'.format(tag)), 'w') as f:
     #     myrun("make", stdout=f, stderr=f)
-    # with open(os.path.join(WORKING_DIR, 'esmf-api-changes-make-doc-{}.out'.format(tag)), 'w') as f:
-    #     myrun("make doc", stdout=f, stderr=f)
+    with open(os.path.join(WORKING_DIR, 'esmf-api-changes-make-doc-{}.out'.format(tag)), 'w') as f:
+        myrun("make doc", stdout=f, stderr=f)
 
 
 def do(esmfdir, outputfile, tag):
