@@ -20,7 +20,7 @@ LOGLVL = logging.INFO
 
 logging.basicConfig(
     level=LOGLVL,
-    format='[%(name)s][%(levelname)s][%(asctime)s] %(message)s',
+    format='[%(name)s][%(levelname)s][%(asctime)s]:: %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S',
     handlers=[
         logging.FileHandler(LOGPATH, mode='w'),
@@ -51,6 +51,7 @@ def myrun(cmd, **kwargs):
 
 
 def main():
+    log(check_output(['gcc', '--version']))
     os.chdir(WORKING_DIR)
     log('current working directory is: {}'.format(os.getcwd()))
     esmf_dir = os.path.join(WORKING_DIR, "esmf-for-api-changes")
